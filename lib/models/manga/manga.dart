@@ -2,21 +2,31 @@ import 'chapter.dart';
 import 'package:flutter/foundation.dart';
 
 class Manga {
-  final String title;
-  final String author;
-  final String artist;
-  final String description;
-  final String source;
-  final String thumbnailUrl;
-  final List<Chapter> chapters;
+  String _title;
+  String _author;
+  String _artist;
+  String _description;
+  String _source;
+  String _thumbnailUrl;
+  String _mangaUrl;
+  List<Chapter> _chapters;
+  
 
   Manga({
-    @required this.title, 
-    @required this.author, 
-    this.artist, 
-    @required this.description, 
-    @required this.source,
-    this.thumbnailUrl, 
-    this.chapters
-    });
+    @required String title, 
+    String author = "unknown",
+    String artist = "unknown",
+    String description = "unknown",
+    @required String source,
+    String thumbnailUrl = "N/A",
+    @required String mangaUrl,
+    }) : 
+    _title = title,
+    _author = author,
+    _artist = artist,
+    _description = description,
+    _source = source,
+    _thumbnailUrl = thumbnailUrl,
+    _mangaUrl = mangaUrl;
+  
 }
