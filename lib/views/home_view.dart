@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
-import '../data.dart';
+import '../customIcons.dart';
 
-var cardAspectRatio = 12.0 / 16.0;
-var widgetAspectRatio = cardAspectRatio * 1.2;
+
 
 class HomeScreen extends StatelessWidget{
   //   var currentPage = images.length - 1.0;
@@ -45,19 +44,78 @@ class HomeScreen extends StatelessWidget{
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //children: <Widget>[
-                        //IconButton(
-//                       icon: Icon(
-//                         CustomIcons.menu,
-//                         color: Colors.white,
-//                         size: 30.0,
-//                       ),
-//                       onPressed: () {
-//                         Scaffold.of(context).openDrawer();
-//                       }, // trigger hamburger menu
-                      // ),
-                     // ]
+                      children: <Widget>[
+                        IconButton(
+                      icon: Icon(
+                        CustomIcons.menu,
+                        color: Colors.white,
+                        size: 30.0,
+                      ),
+                      onPressed: () {
+                        //Scaffold.of(context).openDrawer();
+                      }, // trigger hamburger menu
+                      ),
+                     ]
                     ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20.0
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text("Popular",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 46.0,
+                          fontFamily: "Calibre-Semibold",
+                          letterSpacing: 1.0
+                        )
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          CustomIcons.option,
+                          size: 12.0,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {},
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                          color:Color(0xFFff6e6e),
+                          borderRadius: BorderRadius.circular(20.0)
+                        ),
+                        child:  Center(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal:22.0, vertical: 6.0),
+                            child: Text("Animated",
+                              style: TextStyle( color: Colors.white),
+                            ),
+                          ) ,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 15.0
+                      ),
+                      Text("25+ Stories",
+                        style: TextStyle(color: Colors.blueAccent),
+                      )
+                    ],
+                  ),
+                ),
+                Stack(
+                  children: <Widget>[
+                    CardScrollWidget()
+                  ]
                 )
               ],
             
