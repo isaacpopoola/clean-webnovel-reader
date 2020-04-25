@@ -10,7 +10,6 @@ class Manga {
   String _thumbnailUrl;
   String _mangaUrl;
   List<Chapter> _chapters;
-  
 
   Manga({
     @required String title, 
@@ -28,5 +27,12 @@ class Manga {
     _source = source,
     _thumbnailUrl = thumbnailUrl,
     _mangaUrl = mangaUrl;
+
+    @override
+  String toString() {
+    // TODO: implement toString
+    print("Title:\t$_title\nAuthor:\t$_author\nArtist:\t$_artist\nDescription:\t$_description\nSource:\t$_source");
+    return super.toString();
+  }
   
 }

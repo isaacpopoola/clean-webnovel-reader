@@ -1,22 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
 import 'views/home_view.dart';
 import 'customIcons.dart';
 import 'data.dart';
 import 'dart:math';
+import 'package:flutter_story_app_concept/redux/reducers/reducer.dart';
+import 'package:flutter_story_app_concept/redux/states/app_state.dart';
+import 'package:redux_thunk/redux_thunk.dart';
+
+Store<AppState> store;
+
+void main() {
+  store = new Store<AppState>(
+    reducer,
+    initialState: AppState.initial(),
+    middleware:[thunkMiddleware]
+  );
+  runApp(MyApp(store));
+}
 
 
-void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  final Store<AppState> _store;
+
+  MyApp(this._store);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return StoreProvider<AppState>(
+      store: _store,
+      child: MaterialApp(
       //title: ,
       //theme: ,
       home: HomeScreen()
-
+      ),
     );
+    
   }
 }
 
