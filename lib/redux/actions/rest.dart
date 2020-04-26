@@ -9,7 +9,7 @@ import 'actions.dart';
 ThunkAction<AppState> getPopularManga(int page) {
   return (Store<AppState> store) {
     Scraper scraper = new Mangakakalot();
-    store.dispatch(FetchPopularMangaAction(scraper.parsePopularManga(page)));
+    store.dispatch(FetchPopularMangaAction(popManga: scraper.parsePopularManga(page)));
   };
 }
 

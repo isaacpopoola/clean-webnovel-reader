@@ -34,5 +34,13 @@ class Manga {
     print("Title:\t$_title\nAuthor:\t$_author\nArtist:\t$_artist\nDescription:\t$_description\nSource:\t$_source");
     return super.toString();
   }
+
+  String get title => _title;
+  String get author => _author;
+  String get artist => _artist;
+  String get desc => _description;
+  String get src => _source;
+  String get cover => _thumbnailUrl;
+  String get mangaUrl => _mangaUrl;
   
 }

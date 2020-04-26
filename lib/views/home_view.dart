@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
+import 'package:flutter_story_app_concept/components/card_scroll_widget.dart';
 import '../customIcons.dart';
 
 
@@ -114,7 +115,16 @@ class HomeScreen extends StatelessWidget{
                 ),
                 Stack(
                   children: <Widget>[
-                    CardScrollWidget()
+                    CardScrollWidget(1),
+                    Positioned.fill(
+                      child: PageView.builder(
+                        itemCount: 25,
+                        reverse:true,
+                        itemBuilder:(context, index){
+                          return Container();
+                        },
+                      )
+                    )
                   ]
                 )
               ],

@@ -5,6 +5,8 @@ import 'package:flutter/semantics.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_story_app_concept/main.dart';
 import 'package:flutter_story_app_concept/models/manga/manga.dart';
+import 'package:flutter_story_app_concept/redux/actions/actions.dart';
+import 'package:flutter_story_app_concept/redux/actions/rest.dart';
 import 'package:flutter_story_app_concept/redux/states/app_state.dart';
 import 'package:redux/redux.dart';
 
@@ -21,10 +23,13 @@ class CardScrollWidget extends StatelessWidget{
 @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    
-    return StoreConnector<AppState, List<Manga>>(
-      converter: (store) => store.state.popularManga,
-      builder: (_, popularManga) {
+    print("CardScrollWidget: build()");
+    return StoreConnector<AppState, _ViewModel>(
+      converter: (store) => _ViewModel.create(store),
+      builder: (BuildContext context, _ViewModel model) {
+        
+        model.fetchManga(1);
+
         return AspectRatio(
           aspectRatio: widgetAspectRatio,
           child: LayoutBuilder(
@@ -40,20 +45,112 @@ class CardScrollWidget extends StatelessWidget{
 
               var primaryCardLeft = safeWidth - widthOfPrimaryCard;
               var horizontalInset = primaryCardLeft / 2;
+              
+              List<Widget> cardList = new List();
+              
+              for (var i = 0; i < model.mangas.length; i++ ){
+                var delta = i - currentPage;
+                bool isOnRight = delta > 0;
 
-              Iterable<Widget> cardList = popularManga.map((manga) => 
-                Positioned.directional(
-                  textDirection: null, 
-                  child: null  
-                )
-              );
+                var start = padding + max(primaryCardLeft - horizontalInset * -delta * (isOnRight ? 15 : 1), 0.0);
+
+                
+
+                Widget cardItem = Positioned.directional(
+                    
+                  top: padding + verticalInset * max(-delta, 0.0),
+                  bottom: padding + verticalInset * max(-delta, 0.0),
+                  start: start,
+                  textDirection: TextDirection.rtl,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12,
+                            offset: Offset(3.0, 6.0),
+                            blurRadius: 10.0
+                          )
+                        ]
+                      ),
+                      child: AspectRatio(
+                        aspectRatio: cardAspectRatio,
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: <Widget>[
+                            Image.network(
+                              model.mangas[i].cover, 
+                              fit: BoxFit.cover,
+                            ),
+                            Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 16.0, vertical: 8.0
+                                    ),
+                                    child: Text(
+                                      model.mangas[i].title,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 25.0,
+                                        fontFamily: "SF-Pro-Text-Regular"
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  ),
+                
+                );
+                cardList.add(cardItem);
+              }
+
+    
               return Stack(
-                children: cardList.cast<Widget>()
+                children: cardList
               );
             },
           ),
         );
       },
+    );
+  }
+}
+
+
+class _ViewModel{
+  final List<Manga> mangas;
+  final Function(int) fetchManga;
+  
+  
+  _ViewModel({
+    this.mangas,
+    this.fetchManga
+  });
+
+  factory _ViewModel.create(Store<AppState> store){
+    
+    _fetchManga(int page){
+      store.dispatch(getPopularManga(page));
+    }
+
+    return _ViewModel(
+      fetchManga: _fetchManga,
+      mangas: store.state.popularManga
     );
   }
 }
@@ -125,7 +222,7 @@ class CardScrollWidget extends StatelessWidget{
 //                               padding: EdgeInsets.symmetric(
 //                                   horizontal: 16.0, vertical: 8.0),
 //                               child: Text(title[i],
-//                                   style: TextStyle(
+//                                style: TextStyle(
 //                                       color: Colors.white,
 //                                       fontSize: 25.0,
 //                                       fontFamily: "SF-Pro-Text-Regular")),
