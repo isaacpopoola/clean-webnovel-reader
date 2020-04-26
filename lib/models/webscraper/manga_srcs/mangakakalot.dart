@@ -18,23 +18,21 @@ class Mangakakalot implements Scraper {
     Document document = new Document();
 
     log("Fetching Popular Pages");
-    getPopularManga(urlPath).then((resp) {
-      if (resp.statusCode != 200) throw Exception(resp.body);
-      print("SUCCESSFULL REQUEST");
-      print(resp.body);
-      document = parse(resp.body);
-    });
+    // getPopularManga(urlPath).then((resp) {
+    //   if (resp.statusCode != 200) throw Exception(resp.body);
+    //   print("SUCCESSFULL REQUEST");
+    //   document = parse(resp.body);
+    // });
 
     log("Parsing Popular Pages");
     List<Element> links = document
         .querySelectorAll("div.truyen-list > div.list-truyen-item-wrap");
     
     List<Manga> mangas = new List();
-    for (var link in links) {
+    for (Element link in links) {
       mangas.add(createMangaObject(link));
     }
 
-    print(document);
     return mangas;
   }
 

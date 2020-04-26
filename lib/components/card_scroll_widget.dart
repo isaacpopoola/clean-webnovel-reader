@@ -23,12 +23,11 @@ class CardScrollWidget extends StatelessWidget{
 @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    print("CardScrollWidget: build()");
+    
     return StoreConnector<AppState, _ViewModel>(
       converter: (store) => _ViewModel.create(store),
+      onInitialBuild: (model) => print("CardScrollWidget: inital build"),
       builder: (BuildContext context, _ViewModel model) {
-        
-        model.fetchManga(1);
 
         return AspectRatio(
           aspectRatio: widgetAspectRatio,
@@ -145,6 +144,7 @@ class _ViewModel{
   factory _ViewModel.create(Store<AppState> store){
     
     _fetchManga(int page){
+      print("called?");
       store.dispatch(getPopularManga(page));
     }
 
