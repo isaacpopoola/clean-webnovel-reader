@@ -12,24 +12,26 @@ class Mangakakalot implements Scraper {
   final String language = "en";
 
   @override
-  List<Manga> parsePopularManga([int page = 1]) {
+  Future<List<Manga>> parsePopularManga([int page = 1]) async {
     String urlPath =
         "manga_list?type=topview&category=all&state=all&page=$page";
     Document document = new Document();
 
-    log("Fetching Popular Pages");
-    // getPopularManga(urlPath).then((resp) {
-    //   if (resp.statusCode != 200) throw Exception(resp.body);
-    //   print("SUCCESSFULL REQUEST");
-    //   document = parse(resp.body);
-    // });
+    print("Fetching Popular Pages");
+    var response = await getPopularManga(urlPath);
+    
+    if (response.statusCode != 200) throw Exception(response.body); //TODO: Fix 
+    print("SUCCESSFULL REQUEST");
+    document = parse(response.body);
+    
 
-    log("Parsing Popular Pages");
+    print("Parsing Popular Pages");
     List<Element> links = document
         .querySelectorAll("div.truyen-list > div.list-truyen-item-wrap");
     
     List<Manga> mangas = new List();
     for (Element link in links) {
+      print("Parsing Manga Link");
       mangas.add(createMangaObject(link));
     }
 

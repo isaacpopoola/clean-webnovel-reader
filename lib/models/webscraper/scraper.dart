@@ -8,7 +8,7 @@ import '../manga/page.dart';
  
 abstract class Scraper {
 
-  List<Manga> parsePopularManga([int page = 1]);
+  Future<List<Manga>> parsePopularManga([int page = 1]);
   
   Manga createMangaObject(Element element);
 
