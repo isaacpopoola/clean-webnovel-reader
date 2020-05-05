@@ -31,7 +31,7 @@ class Mangakakalot implements Scraper {
     
     List<Manga> mangas = new List();
     for (Element link in links) {
-      print("Parsing Manga Link");
+      // print("Parsing Manga Link");
       mangas.add(createMangaObject(link));
     }
 

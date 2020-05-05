@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -28,18 +29,19 @@ class CardScrollWidget extends StatelessWidget{
 @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    
+    print("CardScrollWidget: build()");
     return StoreConnector<AppState, _ViewModel>(
       converter: (store) => _ViewModel.create(store),
       // onInitialBuild: (model) => print("CardScrollWidget: inital build"),
       onInitialBuild: (model) => model.fetchManga(1),
       builder: (BuildContext context, _ViewModel model) {
-
+        print("CardScrollWidget: StoreConnector.builder");
         return AspectRatio(
           aspectRatio: widgetAspectRatio,
           child: LayoutBuilder(
             builder: (context, contraints) {
-            
+              print("CardScrollWidget: StoreConnector.builder->AspectRatio.builder");
+
               var width = contraints.maxWidth;
               var height = contraints.maxHeight;
               var safeWidth = width - 2 * padding;
@@ -88,6 +90,7 @@ class CardScrollWidget extends StatelessWidget{
                             Image.network(
                               model.mangas[i].cover, 
                               fit: BoxFit.cover,
+                              colorBlendMode: BlendMode.dstIn,
                             ),
                             Align(
                               alignment: Alignment.bottomLeft,
@@ -99,27 +102,15 @@ class CardScrollWidget extends StatelessWidget{
                                     padding: EdgeInsets.symmetric(
                                       horizontal: 16.0, vertical: 8.0
                                     ),
-                                    child: Container(
-                                      decoration: new BoxDecoration(
-                                        color: Colors.black54,
-                                        borderRadius: new BorderRadius.only(
-                                          topLeft: const Radius.circular(10.0),
-                                          topRight: const Radius.circular(10.0),
-                                          bottomLeft: const Radius.circular(10.0),
-                                          bottomRight: const Radius.circular(10.0)
-                                        )
-                                        // backgroundBlendMode: BlendMode.darken,
-                                      ),
-                                      child: Center(
-                                        child: new Text(
-                                          model.mangas[i].title,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            // color: Color(0xFF1b1e44),
-                                            fontSize: 25.0,
-                                            fontFamily: "SF-Pro-Text-Regular",
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                    child: Center(
+                                      child: new Text(
+                                        model.mangas[i].title,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          // color: Color(0xFF1b1e44),
+                                          fontSize: 25.0,
+                                          fontFamily: "SF-Pro-Text-Regular",
+                                          fontWeight: FontWeight.w900,
                                         ),
                                       ),
                                     ),
@@ -137,7 +128,7 @@ class CardScrollWidget extends StatelessWidget{
                   ),
                 
                 );
-                cardList.add(cardItem);
+                cardList.add(cardItem);                
               }
 
     
@@ -166,7 +157,6 @@ class _ViewModel{
   factory _ViewModel.create(Store<AppState> store){
     
     _fetchManga(int page){
-      print("called?");
       store.dispatch(getPopularManga(page));
     }
 

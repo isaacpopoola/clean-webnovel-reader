@@ -13,11 +13,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var currentPage = 3.0;
+  double currentPage = 8.0;
   
   @override
   Widget build(BuildContext context){
-    PageController controller = PageController(initialPage: 3);
+    print("_HomeScreenState: build()");
+    PageController controller = PageController(initialPage: 11);
     controller.addListener(() {
       setState(() {
         currentPage = controller.page;
@@ -79,8 +80,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontSize: 46.0,
                           fontFamily: "Calibre-Semibold",
                           letterSpacing: 1.0,
-                          fontWeight: FontWeight.bold,
-                          
                         )
                       ),
                       IconButton(
@@ -127,7 +126,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     CardScrollWidget(currentPage),
                     Positioned.fill(
                       child: PageView.builder(
-                        itemCount: 25,
+                        controller: controller,
+                        itemCount: 7,
                         reverse:true,
                         itemBuilder:(context, index){
                           return Container();
