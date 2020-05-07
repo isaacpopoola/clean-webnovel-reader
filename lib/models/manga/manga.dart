@@ -1,7 +1,7 @@
+
 import 'chapter.dart';
 import 'package:flutter/foundation.dart';
-
-class Manga {
+class Manga{
   String _title;
   String _author;
   String _artist;
@@ -19,7 +19,7 @@ class Manga {
     @required String source,
     String thumbnailUrl = "N/A",
     @required String mangaUrl,
-    }) : 
+  }) : 
     _title = title,
     _author = author,
     _artist = artist,
@@ -28,7 +28,7 @@ class Manga {
     _thumbnailUrl = thumbnailUrl,
     _mangaUrl = mangaUrl;
 
-    @override
+  @override
   String toString() {
     // TODO: implement toString
     print("Title:\t$_title\nAuthor:\t$_author\nArtist:\t$_artist\nDescription:\t$_description\nSource:\t$_source");

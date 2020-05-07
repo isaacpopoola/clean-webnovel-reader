@@ -1,15 +1,16 @@
 import 'dart:developer';
+import 'package:dio/dio.dart' as dio;
 import 'package:html/parser.dart';
 import 'package:html/dom.dart';
 
 import 'package:flutter_story_app_concept/models/manga/manga.dart';
-import 'package:http/http.dart';
+// import 'package:http/http.dart' as http;
 import "../scraper.dart";
 
 class Mangakakalot implements Scraper {
-  final String name = "Mangakalot";
-  final String baseUrl = "https://mangakakalot.com";
-  final String language = "en";
+  static const String _name = "Mangakalot";
+  static const String _baseUrl = "https://mangakakalot.com";
+  static const String _language = "en";
 
   @override
   Future<List<Manga>> parsePopularManga([int page = 1]) async {
@@ -20,9 +21,9 @@ class Mangakakalot implements Scraper {
     print("Fetching Popular Pages");
     var response = await getPopularManga(urlPath);
     
-    if (response.statusCode != 200) throw Exception(response.body); //TODO: Fix 
+    if (response.statusCode != 200) throw Exception(response.data); //TODO: Add a proper exception handler 
     print("SUCCESSFULL REQUEST");
-    document = parse(response.body);
+    document = parse(response.data);
     
 
     print("Parsing Popular Pages");
@@ -44,15 +45,15 @@ class Mangakakalot implements Scraper {
     return null;
   }
 
-  Future<Response> getPopularManga(String query) =>
-      Client().get("$baseUrl/$query");
+  Future<dio.Response> getPopularManga(String query) =>
+      dio.Dio().get("$_baseUrl/$query");
 
   @override
   Manga createMangaObject(Element element) => 
     new Manga(
       title: element.querySelector("h3 a").attributes["title"], 
       description: element.querySelector("p").text, 
-      source: name,
+      source: _name,
       mangaUrl: element.querySelector("h3 a").attributes["href"],
       thumbnailUrl: element.querySelector("a img").attributes["src"]
       );

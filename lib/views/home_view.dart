@@ -18,10 +18,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context){
     print("_HomeScreenState: build()");
-    PageController controller = PageController(initialPage: 11);
-    controller.addListener(() {
+    PageController _controller = PageController(initialPage: 11);
+    _controller.addListener(() {
       setState(() {
-        currentPage = controller.page;
+        currentPage = _controller.page;
       });
     });
     
@@ -126,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     CardScrollWidget(currentPage),
                     Positioned.fill(
                       child: PageView.builder(
-                        controller: controller,
+                        controller: _controller,
                         itemCount: 7,
                         reverse:true,
                         itemBuilder:(context, index){
