@@ -8,7 +8,8 @@ class MangeView extends StatefulWidget {
   final String callerPage;
 
   MangeView({
-    @required this.manga
+    @required this.manga, 
+    this.callerPage,
   }) : assert(manga != null);
 
   @override
@@ -31,7 +32,7 @@ class _MangeViewState extends State<MangeView> {
                     height: 220.0,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: Image.network(
+                        image: NetworkImage(
                           widget.manga.src,
                         ),
                         fit: BoxFit.cover,
