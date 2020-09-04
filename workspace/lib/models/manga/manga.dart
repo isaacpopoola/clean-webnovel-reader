@@ -31,7 +31,8 @@ class Manga{
   @override
   String toString() {
     // TODO: implement toString
-    print("Title:\t$_title\nAuthor:\t$_author\nArtist:\t$_artist\nDescription:\t$_description\nSource:\t$_source");
+    // print("Title:\t$_title\nAuthor:\t$_author\nArtist:\t$_artist\nDescription:\t$_description\nSource:\t$_source");
+    print("");
     return super.toString();
   }
 

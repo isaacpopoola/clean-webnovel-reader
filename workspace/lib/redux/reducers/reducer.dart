@@ -10,6 +10,9 @@ AppState reducer(AppState oldState, dynamic action){
       print("Updating Popular Manga in Reducer");
       List<Manga> newPopularManga= oldState.popularManga; 
       newPopularManga.addAll(action.popManga);
+      for (int i = 0; i < newPopularManga.length; i++){
+        print("INDEX: $i, MANGA: "+ newPopularManga[i].title);
+      }
       return oldState.copyWith(popularManga: newPopularManga);
     }  
     break;

@@ -46,7 +46,7 @@ class _MangeViewState extends State<MangeView> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [Colors.transparent, Color(0xFF000000)]
-                      )
+                      ),
                     ),
                   ),
                   Padding(
@@ -62,7 +62,9 @@ class _MangeViewState extends State<MangeView> {
                           children: <Widget>[
                             Hero(
                               tag: "manga_view", // TODO: Use proper tags like -> '${widget.callerPage}${widget.movie.name}'
-                              child: Container()//////HERERERERE
+                              child: Container(
+                                child: Text("LOL does this work???"),
+                              )//////HERERERERE
                             )
                           ],
                         ),

@@ -2,20 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'views/home_view.dart';
-import 'dart:math';
 import 'package:flutter_story_app_concept/redux/reducers/reducer.dart';
 import 'package:flutter_story_app_concept/redux/states/app_state.dart';
 import 'package:redux_thunk/redux_thunk.dart';
+import 'package:flutter_inner_drawer/inner_drawer.dart';
 
-Store<AppState> store;
+
 
 void main() {
-  store = new Store<AppState>(
-    reducer,
-    initialState: AppState.initial(),
-    middleware:[thunkMiddleware]
-  );
-  runApp(MyApp(store));
+  
+  runApp(MyApp(
+    new Store<AppState>(
+      reducer,
+      initialState: AppState.initial(),
+      middleware:[thunkMiddleware]
+    )
+  ));
 }
 
 
@@ -31,9 +33,21 @@ class MyApp extends StatelessWidget {
       store: _store,
       child: MaterialApp(
       //title: ,
-      //theme: ,
-      home: HomeScreen()
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+        primaryColor: Colors.white
       ),
+      home: InnerDrawer(
+        leftChild: Container(),
+        proportionalChildArea: false,
+        onTapClose: true,
+        offset: IDOffset.only(bottom: 0.00, right: 0.0, left: 0.6),
+        scale: IDOffset.horizontal( 0.9 ),
+        borderRadius: 20,
+        leftAnimationType: InnerDrawerAnimation.quadratic,
+        scaffold:HomeScreen(),
+        )
+      )
     );
     
   }

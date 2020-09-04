@@ -5,4 +5,8 @@ class FetchPopularMangaAction {
   final List<Manga> popManga;
 
    FetchPopularMangaAction({this.popManga});
- }
+}
+
+class UpdateNavAction {
+
+}
