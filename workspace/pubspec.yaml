@@ -28,6 +28,7 @@ dependencies:
   dio: 3.0.9
   flutter_inner_drawer: ^0.5.7+2
   flutter_cache_manager: 1.4.1
+  cached_network_image: 2.3.1
 
 
   # The following adds the Cupertino Icons font to your application.
